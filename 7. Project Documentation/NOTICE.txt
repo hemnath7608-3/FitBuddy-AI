@@ -1,0 +1,13 @@
+FitBuddy AI documentation package
+
+Included safe project reference files:
+- README.md
+- requirements.txt
+- .env.example
+- .gitignore
+
+Excluded:
+- .env (contains credential-like secret values)
+- fitbuddy.db (database artifact not required for the documentation package)
+
+The PDF documents are based on the supplied FitBuddy documentation and reference screenshots.
