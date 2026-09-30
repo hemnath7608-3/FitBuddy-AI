@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>FitBuddy AI</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">FitBuddy <span>AI</span></div>
+  <a href="/docs" target="_blank">API Docs</a>
+</header>
+
+<main class="container hero">
+  <section class="intro">
+    <p class="eyebrow">PERSONALIZED WELLNESS</p>
+    <h1>Build a plan that fits your routine.</h1>
+    <p>Enter a few details and FitBuddy creates a structured 7-day activity plan plus a practical nutrition or recovery tip.</p>
+  </section>
+
+  {% if error %}
+  <div class="alert error">{{ error }}</div>
+  {% endif %}
+
+  <section class="card">
+    <h2>Tell us about you</h2>
+    <form method="post" action="/generate-workout" class="grid-form">
+      <label>User ID
+        <input name="user_id" placeholder="U1001" required maxlength="64">
+      </label>
+      <label>Name
+        <input name="username" placeholder="Your name" required maxlength="100">
+      </label>
+      <label>Age
+        <input name="age" type="number" min="13" max="100" required>
+      </label>
+      <label>Weight (kg)
+        <input name="weight" type="number" step="0.1" min="20" max="300" required>
+      </label>
+      <label>Goal
+        <select name="goal">
+          <option value="general wellness">General wellness</option>
+          <option value="strength">Strength</option>
+          <option value="flexibility">Flexibility</option>
+          <option value="endurance">Endurance</option>
+        </select>
+      </label>
+      <label>Preferred intensity
+        <select name="intensity">
+          <option value="low">Low</option>
+          <option value="medium" selected>Medium</option>
+          <option value="high">High</option>
+        </select>
+      </label>
+      <button class="primary full" type="submit">Generate My Plan</button>
+    </form>
+    <p class="note">Demo mode works without an API key. This app is for general wellness education, not medical advice.</p>
+  </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>FitBuddy Users</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">FitBuddy <span>Admin</span></div>
+  <a href="/">Home</a>
+</header>
+
+<main class="container">
+  {% if protected %}
+  <section class="card">
+    <h1>Admin view</h1>
+    <p>This page requires the configured admin key.</p>
+    <p class="note">For local demo use, the default key is <code>fitbuddy-demo-admin</code>. Change it in <code>.env</code>.</p>
+  </section>
+  {% else %}
+  <section class="card">
+    <p class="eyebrow">ADMIN DASHBOARD</p>
+    <h1>All Users</h1>
+    {% if users %}
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>User</th><th>Profile</th><th>Original plan</th><th>Updated plan</th></tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+          <tr>
+            <td><strong>{{ user.username }}</strong><br>{{ user.user_id }}</td>
+            <td>{{ user.age }} yrs<br>{{ user.goal }}<br>{{ user.intensity }}</td>
+            <td><pre class="small-plan">{{ user.original_plan }}</pre></td>
+            <td><pre class="small-plan">{{ user.updated_plan or "—" }}</pre></td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+      <p>No users have been created yet.</p>
+    {% endif %}
+  </section>
+  {% endif %}
+</main>
+</body>
+</html>

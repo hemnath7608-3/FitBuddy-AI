@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>FitBuddy Result</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">FitBuddy <span>AI</span></div>
+  <nav><a href="/">New Plan</a><a href="/docs" target="_blank">API Docs</a></nav>
+</header>
+
+<main class="container">
+  {% if message %}<div class="alert success">{{ message }}</div>{% endif %}
+
+  <section class="card profile">
+    <div>
+      <p class="eyebrow">YOUR PROFILE</p>
+      <h1>Hello, {{ user.username }}.</h1>
+    </div>
+    <div class="stats">
+      <span><b>ID</b>{{ user.user_id }}</span>
+      <span><b>Age</b>{{ user.age }}</span>
+      <span><b>Goal</b>{{ user.goal }}</span>
+      <span><b>Intensity</b>{{ user.intensity }}</span>
+    </div>
+  </section>
+
+  <div class="two-col">
+    <section class="card">
+      <h2>7-Day Plan</h2>
+      <pre class="plan">{{ plan }}</pre>
+    </section>
+
+    <section class="card tip">
+      <h2>Nutrition & Recovery Tip</h2>
+      <p>{{ user.nutrition_tip }}</p>
+      <h3>Want to adjust it?</h3>
+      <form method="post" action="/submit-feedback">
+        <input type="hidden" name="user_id" value="{{ user.user_id }}">
+        <textarea name="feedback" rows="6" maxlength="1500" required placeholder="Example: make it gentler, add more recovery, or include more walking."></textarea>
+        <button class="primary" type="submit">Update Plan</button>
+      </form>
+    </section>
+  </div>
+
+  {% if user.updated_plan %}
+  <section class="card">
+    <h2>Latest Updated Plan</h2>
+    <pre class="plan">{{ user.updated_plan }}</pre>
+  </section>
+  {% endif %}
+</main>
+</body>
+</html>
